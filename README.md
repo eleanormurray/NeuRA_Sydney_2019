@@ -18,6 +18,8 @@ This repository includes all the materials for the NeuRA Sydney course: Getting 
 
 The practicum portion was jointly developed by Eleanor Murray, Ellen Caniglia, and Lucia Petito. Code for the practicum is available in R, SAS, and Stata.The data for the practicum are a simulated version of the Coronary Drug Project trial. Please ensure that you have downloaded the correct version of the dataset for your preferred coding language. The practicum instructions are provided as a single file regardless of programming language. A solutions manual will be available upon completion of the live version of the workshop.
 
+If you plan to use R during the workshop, please ensure that you have the packages installed by running the first set of code before the workshop. This will ensure there are no problems with accessing packages during the session.
+
 # Contact
 For questions, to report errors, or to inquire about in-person workshops, please contact Dr Eleanor Murray at ejmurray@bu.edu
 
