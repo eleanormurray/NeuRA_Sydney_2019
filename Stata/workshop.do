@@ -20,9 +20,6 @@ label values rand rand_lab
 /* Code Section 1 - Data Exploration*/ 
 /********************************************/
 
-/* Load the data from the trial (if you haven't already)*/
-
-use "trial1.dta"
 
 /* Print the names of the available variables*/
 describe

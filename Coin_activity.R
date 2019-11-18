@@ -30,8 +30,8 @@ tidy_coins<-df %>%
   dplyr::mutate(partner_2 =str_sub(partner_2,-5,-1)) %>% 
   select(-timestamp) %>% 
   dplyr::mutate(
-    p_1 = ifelse(partner_1=="heads", 1, 0),
-    p_2 = ifelse(partner_2=="heads", 1, 0),
+    p_1 = ifelse(partner_1=="heads", 1,ifelse(partner_1=="tails", 0, NaN) ),
+    p_2 = ifelse(partner_2=="heads", 1, ifelse(partner_2=="tails", 0, NaN)),
     head_count = p_1 + p_2
   )
 
@@ -40,17 +40,17 @@ tidy_coins
 
 #Data analysis part 1: Association between heads and tails in full data
 tidy_coins %>% group_by(partner_1, partner_2) %>% summarize(n=n())
-CrossTable(tidy_coins$p_1, tidy_coins$p_2, chisq = T)
-
-all_data<-glm(p_1~p_2, data=tidy_coins, family=binomial(link="logit"))
-exp(coefficients(all_data)[2])
-
+set<-CrossTable(tidy_coins$p_1, tidy_coins$p_2, chisq = T, prop.r = F, prop.c=F, prop.chisq = F, prop.t = F)
+OR <- ((set$t[1,1])*(set$t[2,2]))/((set$t[1,2])*(set$t[2,1]))
+CrossTable(tidy_coins$p_1, tidy_coins$p_2, chisq = T, prop.r = F, prop.c=F, prop.chisq = F, prop.t = F)
+OR
 
 #Data analysis part 2: Subset to rows with at least one head, then look at association between heads and tails
 tidy_coins_subset <- subset(tidy_coins, head_count !=0)
-CrossTable(tidy_coins_subset$p_1, tidy_coins_subset$p_2, chisq = T)
-
-some_data <- glm(p_1 ~p_2, data= tidy_coins_subset, family=binomial(link="logit"))
-exp(coefficients(some_data)[2])
-
+set_subset<-CrossTable(tidy_coins_subset$p_1, tidy_coins_subset$p_2, chisq = T, prop.r = F, prop.c=F, prop.chisq = F, prop.t = F)
+OR_subset <- ((set_subset$t[1,1])*(set_subset$t[2,2]))/((set_subset$t[1,2])*(set_subset$t[2,1]))
+OR_subset_continuityCorrected <- ((set_subset$t[1,1]+0.5)*(set_subset$t[2,2]))/((set_subset$t[1,2])*(set_subset$t[2,1]))
+CrossTable(tidy_coins_subset$p_1, tidy_coins_subset$p_2, chisq = T, prop.r = F, prop.c=F, prop.chisq = F, prop.t = F)
+OR_subset
+OR_subset_continuityCorrected
 

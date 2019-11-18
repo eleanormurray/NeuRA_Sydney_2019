@@ -14,7 +14,7 @@
 %let user = %sysget(USERPROFILE);
 /*Set dlgcdir to the location of your extracted file
 /*If you unzipped the github repository in your download folder, you don't need to change anything*/
-%let rc = %sysfunc(dlgcdir("&user./Downloads/CausalSurvivalWorkshop_2019/SAS"));
+%let rc = %sysfunc(dlgcdir("&user./Downloads/NeuRA_Sydney_2019/SAS"));
 
 libname surv "./";
 
